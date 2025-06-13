@@ -1,0 +1,95 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2 class="text-center mb-4">Student Registration</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" id="Password"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div id="password-rules" class="mt-2" style="display:none;">
+                  <small id="length" class="text-danger">❌ At least 8 characters</small><br />
+                  <small id="uppercase" class="text-danger">❌ At least 1 uppercase letter</small><br />
+                  <small id="number" class="text-danger">❌ At least 1 number</small><br />
+                  <small id="special" class="text-danger">❌ At least 1 special character</small>
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <label asp-for="Course" class="form-label"></label>
+                    <input asp-for="Course" class="form-control" />
+                    <span asp-validation-for="Course" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Semester" class="form-label"></label>
+                    <input asp-for="Semester" class="form-control" />
+                    <span asp-validation-for="Semester" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="CGPA" class="form-label"></label>
+                    <input asp-for="CGPA" class="form-control" />
+                    <span asp-validation-for="CGPA" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DOB" class="form-label"></label>
+                    <input asp-for="DOB" type="date" class="form-control" />
+                    <span asp-validation-for="DOB" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Hometown" class="form-label"></label>
+                    <input asp-for="Hometown" class="form-control" />
+                    <span asp-validation-for="Hometown" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DepartmentId" class="form-label"></label>
+                    <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))" class="form-control">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Already registered?</p>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">Go to Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

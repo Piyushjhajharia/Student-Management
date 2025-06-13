@@ -1,0 +1,74 @@
+﻿@model List<StudentManagementSystem.Models.Student>
+@{
+    var successMessage = TempData["Success"] as string;
+}
+@if (!string.IsNullOrEmpty(successMessage))
+{
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">Success</h5>
+                    </div>
+                    <div class="modal-body">
+                    @successMessage
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.onload = function () {
+                var modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            };
+        </script>
+}
+
+<h2>Registered Students</h2>
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="departmentName" class="form-control"
+               list="departmentOptions" placeholder="Search by department..." />
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </div>
+
+    <datalist id="departmentOptions">
+        @foreach (var dept in ViewBag.Departments as List<string>)
+        {
+                <option value="@dept"></option>
+        }
+    </datalist>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Course</th>
+            <th>Semester</th>
+            <th>CGPA</th>
+            <th>DOB</th>
+            <th>Hometown</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Username</td>
+                <td>@student.Course</td>
+                <td>@student.Semester</td>
+                <td>@student.CGPA</td>
+                <td>@student.DOB.ToShortDateString()</td>
+                <td>@student.Hometown</td>
+            </tr>
+        }
+    </tbody>
+</table>

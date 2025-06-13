@@ -1,0 +1,83 @@
+﻿@model StudentManagementSystem.Models.AuthViewModel
+ <!-- tuple model -->
+
+@{
+    ViewData["Title"] = "Register or Login";
+    var studentModel = Model.Student ?? new StudentManagementSystem.Models.Student();
+    var loginError = Model.LoginError;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Registration Form -->
+        <div class="col-md-6 border-end">
+            <h3>New User? Register Here</h3>
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-2">
+                    <label asp-for="Student.Name"></label>
+                    <input asp-for="Student.Name" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.Username"></label>
+                    <input asp-for="Student.Username" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.Password"></label>
+                    <input asp-for="Student.Password" type="password" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.Course"></label>
+                    <input asp-for="Student.Course" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.Semester"></label>
+                    <input asp-for="Student.Semester" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.CGPA"></label>
+                    <input asp-for="Student.CGPA" class="form-control" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.DOB"></label>
+                    <input asp-for="Student.DOB" type="date" class="form-control"
+       value="@((Model.Student.DOB == DateTime.MinValue ? DateTime.Today : Model.Student.DOB).ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Student.Hometown"></label>
+                    <input asp-for="Student.Hometown" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Student.DepartmentId">Department</label>
+                   <select asp-for="Student.DepartmentId" asp-items="@(new SelectList(Model.Departments, "DepartmentId", "DepartmentName"))" class="form-control">
+
+                        <option value="">-- Select Department --</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Register</button>
+            </form>
+        </div>
+
+       <!-- Login Form -->
+<div class="col-md-6">
+    <h3>Existing User? Login</h3>
+    <form asp-action="Login" method="post">
+        <div class="mb-3">
+            <label>Username</label>
+            <input name="username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control" />
+        </div>
+                @if (!string.IsNullOrEmpty(loginError))
+                {
+                <div class="text-danger">@loginError</div>
+                }
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+    
